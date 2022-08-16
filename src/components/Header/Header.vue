@@ -8,7 +8,7 @@
           <p>
             <span>请</span>
             <!-- 声明式导航:务必要有to属性 -->
-            <router-link to="/login" >登录</router-link>
+            <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
@@ -39,7 +39,11 @@
             class="input-error input-xxlarge"
             v-model="keyWord"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">
+          <button
+            class="sui-btn btn-xlarge btn-danger"
+            type="button"
+            @click="goSearch"
+          >
             搜索
           </button>
         </form>
@@ -50,15 +54,15 @@
 
 <script>
 export default {
-  name:"Header",
+  name: "Header",
   data() {
     return {
-      keyWord:""
-    }
+      keyWord: "",
+    };
   },
-  methods:{
+  methods: {
     // 搜索按钮的回调函数,需要向search跳转
-    goSearch(){
+    goSearch() {
       // 路由传递参数两种
       // 一: 字符串形式
       // this.$router.push("/search/"+this.keyWord + "?key=" + this.keyWord.toUpperCase())
@@ -66,14 +70,17 @@ export default {
       // 第二种:模板字符串写法
       // this.$router.push(`/search/${this.keyWord}?key=${this.keyWord.toUpperCase()}`)
       //第三种:对象的写法
-      this.$router.push({
-        name:"search",
-        params:{keyWord:this.keyWord},
-        query:{key:this.keyWord.toUpperCase()}
-      })
-    }
-
-  }
+      // 如果有query参数也带过去
+      if (this.$route.query) {
+        let location = {
+          name: "search",
+          params: { keyWord: this.keyWord },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
+      }
+    },
+  },
 };
 </script>
 
