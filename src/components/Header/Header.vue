@@ -37,7 +37,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="keyWord"
+            v-model="keyword"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -57,7 +57,7 @@ export default {
   name: "Header",
   data() {
     return {
-      keyWord: "",
+      keyword: "",
     };
   },
   methods: {
@@ -65,22 +65,28 @@ export default {
     goSearch() {
       // 路由传递参数两种
       // 一: 字符串形式
-      // this.$router.push("/search/"+this.keyWord + "?key=" + this.keyWord.toUpperCase())
+      // this.$router.push("/search/"+this.keyword + "?key=" + this.keyword.toUpperCase())
       // console.log(this.$route);/*  */
       // 第二种:模板字符串写法
-      // this.$router.push(`/search/${this.keyWord}?key=${this.keyWord.toUpperCase()}`)
+      // this.$router.push(`/search/${this.keyword}?key=${this.keyword.toUpperCase()}`)
       //第三种:对象的写法
       // 如果有query参数也带过去
       if (this.$route.query) {
         let location = {
           name: "search",
-          params: { keyWord: this.keyWord },
+          params: { keyword: this.keyword },
         };
         location.query = this.$route.query;
         this.$router.push(location);
       }
     },
   },
+  mounted(){
+    // 通过全局事件总线清除关键字
+    this.$bus.$on("clear",()=>{
+      this.keyword = ""
+    })
+  }
 };
 </script>
 

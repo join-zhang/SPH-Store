@@ -17,14 +17,13 @@ import "./mock/mockServe"
 // 引入swiper样式
 import "swiper/css/swiper.css"
 
-// 测试请求API
-// import { reqCategoryList } from "@/api/index";
-// console.log(reqCategoryList());
-
 Vue.config.productionTip = false;
 new Vue({
   render: (h) => h(App),
-
+  // 配置全局事件总线
+  beforeCreate(){
+    Vue.prototype.$bus = this
+  },
   // 注册路由: 底下的路由是key Value 一致省略v router小写
   // 注册路由信息:
   router,
