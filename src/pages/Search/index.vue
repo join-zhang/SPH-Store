@@ -83,9 +83,7 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"
-                      ><img :src="good.defaultImg"
-                    /></a>
+                    <router-link :to="`/detail/${good.id}`"><img :src="good.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -119,36 +117,14 @@
               </li>
             </ul>
           </div>
-          <!-- 分页器 -->
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <!-- 分页器进行测试 -->
+          <Pagination
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :total="total"
+            :continues="5"
+            @getPageNo="getPageNo"
+          ></Pagination>
         </div>
       </div>
     </div>
@@ -156,7 +132,7 @@
 </template>
 <script>
 import SearchSelector from "./SearchSelector/SearchSelector";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "Search",
   components: {
@@ -181,7 +157,7 @@ export default {
         // 分页器
         pageNo: 1,
         // 每一页展示数据的个数
-        pageSize: 10,
+        pageSize: 3,
         // 平台售卖属性带的参数
         props: [],
         // 品牌
@@ -221,6 +197,10 @@ export default {
     isDesc() {
       return this.searchParams.order.indexOf("desc") != -1;
     },
+    // 获取store中的search模块展示产品一共多少数据
+    ...mapState({
+      total: (state) => state.search.searchList.total,
+    }),
   },
   methods: {
     // 将search请求封装为一个函数: 调用时候直接调用 (根据参数不同,返回不同的数据进行展示)
@@ -303,7 +283,14 @@ export default {
       }
       // 将新的order 赋予给旧的order
       this.searchParams.order = newOrder;
-      this.getData()
+      this.getData();
+    },
+    // 获取分页器点击的页码
+    getPageNo(pageNo) {
+      console.log(pageNo);
+      // 整理带回来的参数
+      this.searchParams.pageNo = pageNo;
+      this.getData();
     },
   },
   // 数据监听: 监听组件实例身上的属性的属性值变化
