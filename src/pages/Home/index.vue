@@ -29,6 +29,8 @@ export default {
   mounted(){
     // floor组件  派发floor 
     this.$store.dispatch("getFloorList")
+    // 获取登录的用户信息  在首页展示
+    // this.$store.dispatch("getUserInfo")
   },
   computed:{
     ...mapState({

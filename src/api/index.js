@@ -61,3 +61,35 @@ export const  reqUserRegister = (data)=> requests({url:`/user/passport/register`
 // 登录接口
 // URL :/api/user/passport/login   method:post  phone password 
 export const  reqUserLogin = (data)=> requests({url:"/user/passport/login",data,method:'post'})
+
+// 获取用户的信息[需要带着用户的token 向服务器要用户信息]
+//  URL  : /api/user/passport/auth/getUserInfo  method: get 
+export const reqUserInfo = ()=>requests({url:"/user/passport/auth/getUserInfo",method:"get"})
+
+// 退出登录
+// URL : /api/user/passport/logout method:get
+export const reqLogout = ()=> requests({url:"/user/passport/logout" , method:"get"})
+
+// 获取用户地址信息
+// URL : /api/user/userAddress/auth/findUserAddressList  method: get  
+export const reqAddressInfo = ()=> requests({url:"/user/userAddress/auth/findUserAddressList" , method:"get"})
+
+// 获取用户订单,商品订单接口
+// URL: /api/order/auth/trade  method:get  没参数
+export const  reqOrderInfo = ()=> requests({url:"/order/auth/trade",method:"get"})
+
+// 提交订单
+// ULR : /api/order/auth/submitOrder?tradeNo={tradeNo} method:post  
+export const reqSubmitOrder = (tradeNo,data)=>requests({url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,data,method:"post"})
+
+// 获取支付信息
+// URL : /api/payment/weixin/createNative/{orderId}  method:get
+export const reqPayInfo = (orderId)=> requests({url:`/payment/weixin/createNative/${orderId}`,method:"get"})
+
+// 获取支付订单状态的接口
+// URL:/api/payment/weixin/queryPayStatus/{orderId}  method:get
+export const reqPayStatus = (orderId)=> requests({url:`/payment/weixin/queryPayStatus/${orderId}`,method:"get"})
+
+// 获取我的订单接口
+// URL : /api/order/auth/{page}/{limit}  method:get
+export const reqMyOderList = (page,limit)=>requests({url:`/order/auth/${page}/${limit}`,method:"get"}) 

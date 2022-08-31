@@ -81,7 +81,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link class="sum-btn" to="/trade" >结算</router-link>
         </div>
       </div>
     </div>
@@ -91,7 +91,6 @@
 // 引入 store中的数据
 import { mapGetters } from "vuex";
 import throttle from "lodash/throttle";
-import { effectScope } from 'vue';
 export default {
   name: "ShopCart",
   mounted() {

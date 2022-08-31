@@ -23,6 +23,14 @@ requests.interceptors.request.use((config)=>{
         // 请求头添加字段(userTempId) :  和后台商量好的字段
         config.headers.userTempId = store.state.detail.uuid_token
     }
+
+    // 判断 需要携带token 带给服务器
+    if(store.state.user.token){
+        config.headers.token = store.state.user.token
+    }
+    // if(localStorage.getItem("TOKEN")){
+    //     config.headers.token = localStorage.getItem("TOKEN")
+    // }
     // 进度条开始动
     nprogress.start()
     return config

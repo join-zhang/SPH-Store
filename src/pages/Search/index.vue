@@ -83,7 +83,7 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <router-link :to="`/detail/${good.id}`"><img :src="good.defaultImg" /></router-link>
+                    <router-link :to="`/detail/${good.id}`"><img v-lazy="good.defaultImg" /></router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -287,7 +287,7 @@ export default {
     },
     // 获取分页器点击的页码
     getPageNo(pageNo) {
-      console.log(pageNo);
+      // console.log(pageNo);
       // 整理带回来的参数
       this.searchParams.pageNo = pageNo;
       this.getData();

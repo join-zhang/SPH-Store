@@ -91,9 +91,10 @@ export default {
       try {
         const { phone, password } = this;
         phone &&
-          password &&
-          // 登录成功跳转到home首页
-          this.$router.push('/home')
+          password && await this.$store.dispatch("userLogin",{phone,password})
+          // 登录成功跳转到home首页   跳转前判断是否携带query中的重定向  如果有 则重定向跳转  如果没有 跳转home
+          let toPath = this.$route.query.redirect || "/home"
+          this.$router.push(toPath)
       } catch (error) {
         alert(error.message)
       }
